@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 class="text-center mt-5 mb-5" id="spacing-long">Prisijungimo vieta</h1>
+  {% if form.errors %}
+
+    <p class="text-center mt-5 mb-5" style="color:white">Prisijungimo klaida, bandykite dar kartą!</p>
+  {% endif %}
+
+  {% if next %}
+    {% if user.is_authenticated %}
+      <p class="text-center mt-5 mb-5" style="color:white">Neturite prieigos prie šios informacijos. Turite prisijungti.</p>
+    {% endif %}
+  {% endif %}
+
+  <form class="text-center" method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <table class="text-center mt-5 mb-5" style="width:100%">
+      <tr>
+        <td ><input class="mb-2" style="height:35px ;width:250px; border-radius:15px;" type="text" name="username" {% if form.username.value %}value="{{ form.username.value }}"{% endif %} placeholder="Vartotojas" required></td>
+      </tr>
+      <tr>
+        <td ><input style="height:35px ;width:250px; border-radius:15px;" type="password" name="password" placeholder="Slaptažodis" required></td>
+      </tr>
+    </table>
+    <input class="btn btn-primary user-button" type="submit" value="Prisijungti" />
+    <input type="hidden" name="next" value="{{ next }}" />
+  </form>
+
+  <p><a href="{% url 'password_reset' %}">Pamiršote slaptažodį?</a></p>
+
+{% endblock %}

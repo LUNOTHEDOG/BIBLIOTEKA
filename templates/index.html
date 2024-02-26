@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+  <div class="d-flex align-items-center justify-content-center flex-column">
+  <h1 class="text-center mt-4 mb-5" id="spacing-long">Skaitmeninė biblioteka</h1>
+    <div class="info-label ">
+      <br/>
+      <p id="authors" class="d-flex justify-content-center">ŠIUO METU TURIME</p>
+      <ul class="list-unstyled d-flex justify-content-center">
+        <li>Knygų: {{ num_books }}
+            Egzempliorių: {{ num_instances }}
+            Laisvų egzempliorių: {{ num_instances_free }}
+            Autorių: {{ num_authors }}</li>
+      </ul>
+    </div>
+    <h2 class="mb-3 mt-3" id="spacing-shorten" >Populiariausios knygos</h2>
+    <div class="d-flex justify-content-center favourite">
+      {% for book in favorite_books %}
+        <a href="{% url 'book-detail' book.id %}" class="col-md-3 d-flex align-items-stretch" style="text-decoration:none">
+          <div class="card mt-3  card-hover mb-5 shadow-sm">
+            {% if book.cover %}
+              <img src="{{ book.cover.url }}" class="card-img-top" alt="...">
+            {% else %}
+              <img src="{% static 'img/no-image.png' %}" class="card-img-top">
+            {% endif %}
+            <div class="card-body">
+              <h6 class="text-green-author">{{ book.author }}</h6>
+              <p class="text-green-title">{{ book.title }}</p>
+            </div>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

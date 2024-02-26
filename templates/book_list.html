@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+  <h1 class="text-center mt-4 mb-5" id="spacing-long">Knygų sąrašas</h1>
+  {% if books %}
+  <div class="row justify-content-center">
+      <div class="position-absolute  black-overlay"></div>
+    {% for book in books %}
+      <a href="{% url 'book-detail' book.id %}" class="col-2 d-flex align-items-stretch" style="text-decoration:none">
+        <div class="card mt-5  card-hover mb-5 shadow-sm">
+          {% if book.cover %}
+            <img src="{{ book.cover.url }}" class="card-img-top" alt="...">
+          {% else %}
+            <img src="{% static 'img/no-image.png' %}" class="card-img-top">
+          {% endif %}
+          <div class="card-body">
+            <h6 class="text-green-author">{{ book.author }}</h6>
+            <p class="text-green-title">{{ book.title }}</p>
+          </div>
+        </div>
+      </a>
+
+    {% endfor %}
+  </div>
+  {% else %}
+    <p class="lead text-center">Bibliotekoje knygų nėra.</p>
+  {% endif %}
+
+  <div class="container puslapiai">
+    <nav aria-label="...">
+      {% if books.has_other_pages %}
+        <ul class="mt-2 pagination pagination-sm justify-content-center">
+          {% for i in books.paginator.page_range %}
+              {% if books.number == i %}
+                  <li class="active page-item">
+                      <a class="page-link">{{ i }}</a>
+                  </li>
+              {% else %}
+                  <li class="page-item">
+                      <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                  </li>
+              {% endif %}
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </nav>
+  </div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section text-center">
+    <form method="POST" action="" enctype="multipart/form-data">
+       {% csrf_token %}
+        <fieldset class="form-group text-center">
+            <h1 id="spacing-long" class="mb-5 mt-5 ">Naujas knygos egzempliorius</h1>
+            {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info btn-new"  type="submit">Išsaugoti</button>
+        </div>
+    </form>
+    </div>
+{% endblock content %}

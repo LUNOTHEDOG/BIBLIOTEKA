@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 id="spacing-long" class="text-center mb-5 mt-5">Mano paimtos knygos</h1>
+    <img class="rounded-circle user-image mb-5" src="{{ user.profilis.nuotrauka.url }}">
+
+    {% if books %}
+<ul class="user-books-list">
+  {% for book in books %}
+    <br/>
+    <li class="user-book {% if book.is_overdue %}text-danger{% endif %}">
+      {% if book.book.cover %}
+        <img class="user-book-image" src="{{ book.book.cover.url }}" >
+      {% endif %}
+      <div class="book-info">
+        <a id="user-book-link" href="{% url 'book-detail' book.book.pk %}">
+          <div  >{{ book.book.title }}</div>
+        </a>
+      </div>
+
+      <p>{{ book.due_back|date:"Y-m-d" }}</p>
+      <a class="btn btn-primary user-button" href="{{ book.pk }}" role="button">Peržiūrėti</a>
+    </li>
+
+    <br/>
+  {% endfor %}
+</ul>
+
+    {% else %}
+      <p class="text-center" style="color:white">Šiuo metu iš mūsų nesate paėmę knygų.</p>
+    {% endif %}
+{% endblock %}

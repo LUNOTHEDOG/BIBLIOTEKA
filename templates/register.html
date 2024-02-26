@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="mb-5 mt-5 text-center" id="spacing-long">Registracija</h1>
+<div class="register-background">
+    <div class="container register">
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label class="label-form" for="username" style="padding-top:1%;">Vartotojo vardas</label>
+                <input name="username" type="text" class="form-control" id="username" aria-describedby="usernameHelp" required>
+                <small id="usernameHelp" class="form-text text-muted">Iki 150 simbolių.</small>
+            </div>
+            <div class="form-group">
+                <label class="label-form" for="exampleInputEmail1">El. paštas</label>
+                <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                <small id="emailHelp" class="form-text text-muted">Nesidalinsime su niekuo, nesiųsime jokio spamo.
+                    Reikalingas naujam slaptažodžiui išsiųsti. </small>
+            </div>
+            <div class="form-group">
+                <label class="label-form" for="password">Slaptažodis</label>
+                <input name="password" type="password" class="form-control" id="password" aria-describedby="pwdHelp" required>
+                <small id="pwdHelp" class="form-text text-muted">Ne mažiau, kaip 8 simboliai. Negali būti vien tik
+                    skaičiai</small>
+            </div>
+            <div class="form-group">
+                <label class="label-form" for="password2">Pakartoti slaptažodį</label>
+                <input name="password2" type="password" class="form-control" id="password2" aria-describedby="pwd2Help" required>
+            </div>
+            <button type="submit" class="btn btn-primary register-button">Registruotis</button>
+        </form>
+        <p  style="padding-bottom:1%; color:white">Esate užsiregistravęs? <a class="loggin-redirect" href="{% url 'login'%}"><strong>prisijunkite</strong></a></p>
+    </div>
+</div>
+{% endblock %}
